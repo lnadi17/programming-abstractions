@@ -1,0 +1,6 @@
+# Ignore everything except .cpp and .h files
+# !*.cpp
+# !*.h
+
+# Ignore .suo files
+*.suo
