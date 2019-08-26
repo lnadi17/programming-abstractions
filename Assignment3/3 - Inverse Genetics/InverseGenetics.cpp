@@ -25,7 +25,7 @@ using namespace std;
  * that code, lists all possible RNA strands that could generate
  * that protein
  */
-void listAllRNAStrandsFor(string protein, Map<char, Set<string> >& codons);
+void listAllRNAStrandsFor(string protein, Map<char, Set<string> > & codons);
 
 /* Function: loadCodonMap();
  * Usage: Map<char, Lexicon> codonMap = loadCodonMap();
@@ -33,6 +33,8 @@ void listAllRNAStrandsFor(string protein, Map<char, Set<string> >& codons);
  * Loads the codon mapping table from a file.
  */
 Map<char, Set<string> > loadCodonMap();
+
+Set<string> getStrandSetFor(string protein, Map<char, Set<string> > & codons);
 
 int main() {
     /* Load the codon map. */
@@ -42,13 +44,23 @@ int main() {
     return 0;
 }
 
-void listAllRNAStrandsFor(string protein, Map<char, Set<string> >& codons){
-	if (protein == "") {
-		cout << endl;
+void listAllRNAStrandsFor(string protein, Map<char, Set<string> > & codons) {
+	foreach (string rnaStrand in getStrandSetFor(protein, codons)) {
+		cout << rnaStrand << endl;
 	}
-	foreach (string rna in codons[protein[0]]) {
-		cout << rna;
-		listAllRNAStrandsFor(protein.substr(1), codons);
+}
+
+Set<string> getStrandSetFor(string protein, Map<char, Set<string> > & codons) {
+	if (protein.length() == 1) {
+		return codons.get(protein[0]);
+	} else {
+		Set<string> result;
+		foreach (string sequencePrefix in getStrandSetFor(protein.substr(0, 1), codons)) {
+			foreach (string shorterSequence in getStrandSetFor(protein.substr(1), codons)) {
+				result.add(sequencePrefix + shorterSequence);
+			}
+		}
+		return result;
 	}
 }
 
