@@ -11,11 +11,21 @@
 DoublyLinkedListPriorityQueue::DoublyLinkedListPriorityQueue() {
 	len = 0;
 	head = NULL;
-	tail = NULL;
+	//tail = NULL;
 }
 
 DoublyLinkedListPriorityQueue::~DoublyLinkedListPriorityQueue() {
-	// TODO: Fill this in!
+	if (len < 2) {
+		if (head == NULL) return;
+		delete head;
+		return;
+	}
+	dCell *curr = head->next;
+	while(curr->next != NULL) {
+		delete curr->prev;
+		curr = curr->next;
+	}
+	delete curr;
 }
 
 int DoublyLinkedListPriorityQueue::size() {
@@ -47,26 +57,17 @@ string DoublyLinkedListPriorityQueue::dequeueMin() {
 	string value = getMinCellPointer()->value;
 
 	dCell *tmp = getMinCellPointer();
-	dCell *minPrev = getMinCellPointer()->prev;
-	dCell *minNext = getMinCellPointer()->next;
-
-	if (minPrev == NULL && minNext == NULL) {
-		head == NULL;
-		delete tmp;
-		return value;
-	}
+	dCell *minPrev = tmp->prev;
+	dCell *minNext = tmp->next;
 
 	if (minPrev != NULL) {
 		minPrev->next = minNext;
 	} else {
 		head = minNext;
-		minNext->prev = NULL;
 	}
 
 	if (minNext != NULL) {
 		minNext->prev = minPrev;
-	} else {
-		minPrev->next = NULL;
 	}
 
 	delete tmp;
@@ -84,6 +85,7 @@ dCell *DoublyLinkedListPriorityQueue::createCell(dCell *prev, string value, dCel
 void DoublyLinkedListPriorityQueue::addToHead(string value) {
 	dCell *oldHead = head;
 	head = createCell(NULL, value, oldHead);
+	oldHead->prev = head;
 }
 
 dCell *DoublyLinkedListPriorityQueue::getMinCellPointer() {

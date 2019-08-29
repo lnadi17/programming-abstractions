@@ -47,6 +47,15 @@ private:
 	//
 	// While you are free to implement this as you see fit, you *must* do
 	// all of your own memory management and should not use the Vector.
+	static const int INITIAL_CAPACITY = 1;
+
+	int count;
+	int capacity;
+	string *arr;
+
+	void extendCapacity();
+	void bubbleUp(int index);
+	void bubbleDown(int index);
 };
 
 #endif

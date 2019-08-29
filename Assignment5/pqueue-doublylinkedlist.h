@@ -55,8 +55,8 @@ private:
 	int len;
 
 	dCell *createCell(dCell *prev, string value, dCell *next);
-	dCell *getMinCellPointer();
 	void addToHead(string value);
+	dCell *getMinCellPointer();
 };
 
 #endif
