@@ -12,7 +12,7 @@ Assignment 4: Sorting Algorithms
 
 Assignment 5: Linked Lists
 
-Assignment 5: Huffman Encoding (+ Implemented LZW algorithm)
+Assignment 6: Huffman Encoding (+ Implemented LZW algorithm)
 
 Assignment 7: Graph Algorithms (+ Implemented random noise generation for Trailblazer using Perlin Noise algorithm)
 
